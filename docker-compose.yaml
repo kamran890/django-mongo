@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+    web:
+        restart: always
+        build: .
+        command: python manage.py runserver 0.0.0.0:80
+        volumes:
+            - .:/code
+        ports:
+            - "80:80"
+        environment:
+            - DEBUG=${DEBUG}
+            - DB_USER=${DB_USER}
+            - DB_PASS=${DB_PASS}
+            - DB_HOST=${DB_HOST}
+            - DB_NAME=${DB_NAME}
+            - SECRET_KEY=${SECRET_KEY}
+
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
